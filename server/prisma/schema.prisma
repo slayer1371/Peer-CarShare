@@ -14,35 +14,36 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
+  id        Int       @id @default(autoincrement())
   name      String
-  email     String   @unique
+  email     String    @unique
   password  String
-  createdAt DateTime @default(now())
-  // cars      Car[]    // One user can list multiple cars
-  // bookings  Booking[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  profile   Profile?
+  cars      Car[]
 }
 
-// model Car {
-//   id          String   @id @default(uuid())
-//   ownerId     String
-//   owner       User     @relation(fields: [ownerId], references: [id])
-//   make        String
-//   model       String
-//   year        Int
-//   location    String
-//   pricePerDay Float
-//   available   Boolean  @default(true)
-//   bookings    Booking[]
-// }
+model Profile {
+  id         Int      @id @default(autoincrement())
+  userId     Int      @unique
+  firstName  String
+  lastName   String
+  phoneNumber String
+  licenseNumber String
+  user       User     @relation(fields: [userId], references: [id])
+}
 
-// model Booking {
-//   id        String   @id @default(uuid())
-//   carId     String
-//   car       Car      @relation(fields: [carId], references: [id])
-//   userId    String
-//   user      User     @relation(fields: [userId], references: [id])
-//   startDate DateTime
-//   endDate   DateTime
-//   totalCost Float
-// }
+model Car {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  make        String
+  model       String
+  year        Int
+  location    String
+  pricePerDay Float
+  availability Boolean @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id])
+}
