@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Car, Eye, EyeOff, ArrowLeft } from "lucide-react";
-import { Errors, FormDatatype } from "./types/types-signup";
+import { Errors, FormDatatype } from "../types/types-signup";
 import { useNavigate } from "react-router";
 import axios from "axios";
 
@@ -70,17 +70,15 @@ export default function Signup() {
     e.preventDefault();
     
     if (validate()) {
-      // Here you would typically send the data to your backend
-      if (validate()) {
         try {
           // Send the form data to the backend
           const response = await axios.post("http://localhost:8000/api/auth/signup", formData);
     
           // Handle response after successful signup
-          if (response.status === 200) {
+          if (response.status === 200 || response.status == 201) {
             console.log("Signup successful:", response.data);
-            alert("Signup successful! Redirecting to login...");
-            navigate("/login"); // Redirect to login page
+            alert("Signup successful! Redirecting to dashboard...");
+            navigate("/dashboard"); // Redirect to login page
           } else {
             // Handle error if backend returns an error
             alert("Error occurred during signup, please try again.");
@@ -88,12 +86,7 @@ export default function Signup() {
         } catch (error) {
           console.error("Error during signup:", error);
           alert("Error occurred during signup, please try again.");
-        }
       }
-
-      // console.log("Form submitted:", formData);
-      // alert("Signup successful! Redirecting to login...");
-      // // Redirect to login or dashboard
     }
   };
   

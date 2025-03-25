@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { Car, Eye, EyeOff, ArrowLeft, LogOut } from "lucide-react";
 import { useNavigate } from "react-router";
-import { FormDataLogin, ErrorsLogin, UserLogin } from "./types/types-login";
+import { FormDataLogin, ErrorsLogin, UserLogin } from "../types/types-login";
 
 export default function LoginPage() {
+  
     const navigate = useNavigate();
 
   const [formData, setFormData] = useState<FormDataLogin>({
@@ -11,7 +12,7 @@ export default function LoginPage() {
     password: ""
   });
   
-  const [errors, setErrors] = useState<ErrorsLogin>({});
+  const [errors, setErrors] = useState<{[key: string]: string}>({});
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -19,12 +20,6 @@ export default function LoginPage() {
     name : "",
     email : ""
   });
-  
-  // Demo credentials - in a real app these would be verified through an API
-  const demoCredentials = {
-    email: "demo@carshare.com",
-    password: "password123"
-  };
   
   // Check for existing session on component mount
   useEffect(() => {
@@ -36,6 +31,7 @@ export default function LoginPage() {
         setIsLoggedIn(true);
       } catch (e) {
         // Handle invalid stored data
+        console.log(e);
         localStorage.removeItem('carShareUser');
       }
     }
@@ -76,44 +72,57 @@ export default function LoginPage() {
     return Object.keys(newErrors).length === 0;
   };
   
-  const handleSubmit = (e : React.ChangeEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e : React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     if (validate()) {
       setIsLoading(true);
       
+
       // Simulate API call with timeout
-      setTimeout(() => {
-        if (formData.email === demoCredentials.email && 
-            formData.password === demoCredentials.password) {
-          // Create user data
+      try {
+        const response = await fetch("http://localhost:8000/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(formData),
+        });
+  
+        const data = await response.json();
+  
+        if (response.ok) {
+          localStorage.setItem("authToken", data.token);
+
+          // Assuming the backend returns user data on successful login
           const userData = {
-            email: formData.email,
-            name: "Demo User",
-            id: "user_demo123",
+            email: data.email,
+            name: data.name,
+            id: data.id,
             lastLogin: new Date().toISOString()
           };
-          
+  
           // Store in localStorage for session persistence
-          localStorage.setItem('carShareUser', JSON.stringify(userData));
-          
+          localStorage.setItem("carShareUser", JSON.stringify(userData));
+  
           // Update state
           setUser(userData);
           setIsLoggedIn(true);
-          
+  
           // Reset form
-          setFormData({
-            email: "",
-            password: ""
-          });
+          setFormData({ email: "", password: "" });
+  
+          // Redirect to dashboard
+          navigate("/dashboard");
         } else {
-          // Failed login
-          setErrors({
-            auth: "Invalid email or password"
-          });
+          setErrors({ auth: data.message || "Invalid email or password" });
         }
+      } catch (error) {
+        console.error("Login error:", error);
+        setErrors({ auth: "Something went wrong. Please try again." });
+      } finally {
         setIsLoading(false);
-      }, 1000);
+      }
     }
   };
   
@@ -134,8 +143,8 @@ export default function LoginPage() {
   
   const redirectToHome = () => {
     // In a real app, use React Router
-    alert("Redirecting to home page...");
-    // window.location.href = "/";
+    // alert("Redirecting to home page...");
+    navigate("/");
   };
   
   const togglePasswordVisibility = () => {
@@ -184,7 +193,7 @@ export default function LoginPage() {
               <div className="space-y-4">
                 <button
                   onClick={redirectToHome}
-                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                  className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 cursor-pointer"
                 >
                   Go to Dashboard
                 </button>

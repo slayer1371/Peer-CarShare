@@ -1,11 +1,11 @@
-import HeroSection from "./Components/HeroSec";
-import HowItWorks from "./Components/Process";
-import Benefits from "./Components/Benefits";
-import Testimonials from "./Components/Testimonials";
-import Faq from "./Components/Faq";
-import Footer from "./Components/Footer";
-import Cta from "./Components/Cta";
-import Navbar from "./Components/Navbar";
+import HeroSection from "../Components/HeroSec";
+import HowItWorks from "../Components/Process";
+import Benefits from "../Components/Benefits";
+import Testimonials from "../Components/Testimonials";
+import Faq from "../Components/Faq";
+import Footer from "../Components/Footer";
+import Cta from "../Components/Cta";
+import Navbar from "../Components/Navbar";
 
 export default function CarSharingLandingPage() {
 
