@@ -1,9 +1,27 @@
 import express from "express";
-import { authenticate } from "./middlewares.js";
+import { authenticate } from "../middlewares/middlewares.js";
 import { PrismaClient } from "@prisma/client";
 
 const router = express.Router();
 const prisma = new PrismaClient();
+
+// Get User Profile
+router.get("/profile", authenticate, async (req, res) => {
+  try {
+    const profile = await prisma.profile.findUnique({ 
+      where: { userId: req.user.id },
+      include: { user: { select: { id: true, name: true, email: true } } }
+    });
+
+    if (!profile) {
+      return res.status(404).json({ message: "Profile not found" });
+    }
+
+    res.status(200).json(profile);
+  } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
 
 // Create or Update Profile
 router.post("/profile", authenticate, async (req, res) => {

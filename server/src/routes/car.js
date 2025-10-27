@@ -1,5 +1,5 @@
 import express from "express";
-import { authenticate } from "./middlewares.js";
+import { authenticate } from "../middlewares/middlewares.js";
 import { PrismaClient } from "@prisma/client";
 
 const router = express.Router();
@@ -8,11 +8,11 @@ const prisma = new PrismaClient();
 // Create Car Listing
 router.post("/car", authenticate, async (req, res) => {
   try {
-    const { make, model, year, location, pricePerDay, availability } = req.body;
+    const { make, model, year, location, pricePerDay, availability, imageUrl, description } = req.body;
 
     // Validation
     if (!make || !model || !year || !location || !pricePerDay || availability === undefined) {
-      return res.status(400).json({ message: "All fields are required" });
+      return res.status(400).json({ message: "All required fields must be provided" });
     }
 
     // Create Car Listing
@@ -25,11 +25,14 @@ router.post("/car", authenticate, async (req, res) => {
         location,
         pricePerDay,
         availability,
+        imageUrl: imageUrl || null,
+        description: description || null,
       },
     });
 
     res.status(201).json({ message: "Car listed successfully", car: newCar });
   } catch (error) {
+    console.error("Error creating car:", error);
     res.status(500).json({ error: "Server error" });
   }
 });
@@ -44,6 +47,21 @@ router.get("/cars", async (req, res) => {
 
     res.status(200).json(cars);
   } catch (error) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// Get My Cars (authenticated user's listings)
+router.get("/my-cars", authenticate, async (req, res) => {
+  try {
+    const cars = await prisma.car.findMany({
+      where: { userId: req.user.id },
+      orderBy: { createdAt: 'desc' },
+    });
+
+    res.status(200).json(cars);
+  } catch (error) {
+    console.error("Error fetching user's cars:", error);
     res.status(500).json({ error: "Server error" });
   }
 });
