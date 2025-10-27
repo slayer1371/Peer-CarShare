@@ -12,17 +12,17 @@ export default function HeroSection() {
               Join thousands of people who are saving money and reducing idle cars through peer-to-peer car sharing.
             </p>
             <div className="mt-8 flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
-              <button className="bg-white text-blue-700 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium text-lg shadow-md">
+              <button className="bg-white text-blue-700 hover:bg-blue-50 px-6 py-3 rounded-lg font-medium text-lg shadow-md cursor-pointer">
                 Find a Car
               </button>
-              <button className="bg-blue-500 text-white hover:bg-blue-400 px-6 py-3 rounded-lg font-medium text-lg shadow-md">
+              <button className="bg-blue-500 text-white hover:bg-blue-400 px-6 py-3 rounded-lg font-medium text-lg shadow-md cursor-pointer">
                 Share Your Car
               </button>
             </div>
           </div>
           <div className="hidden md:block">
             <div className="relative rounded-xl bg-white p-4 shadow-xl">
-              <img src="/api/placeholder/600/400" alt="Car sharing" className="rounded-lg w-full" />
+              <img src="/carshare.jpg" alt="Car sharing" className="rounded-lg w-full" />
             </div>
           </div>
         </div>

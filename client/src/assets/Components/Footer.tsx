@@ -18,29 +18,29 @@ export default function Footer() {
             <div>
               <h3 className="text-lg font-semibold mb-4">Company</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white">About Us</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Careers</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Blog</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Press</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white cursor-pointer">About Us</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white cursor-pointer">Careers</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white cursor-pointer">Blog</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white cursor-pointer">Press</a></li>
               </ul>
             </div>
             
             <div>
               <h3 className="text-lg font-semibold mb-4">Support</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white">Help Center</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Contact Us</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Safety</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Insurance</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white cursor-pointer">Help Center</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white cursor-pointer">Contact Us</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white cursor-pointer">Safety</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white cursor-pointer">Insurance</a></li>
               </ul>
             </div>
             
             <div>
               <h3 className="text-lg font-semibold mb-4">Legal</h3>
               <ul className="space-y-2">
-                <li><a href="#" className="text-gray-400 hover:text-white">Terms of Service</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Privacy Policy</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Cookie Policy</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white cursor-pointer">Terms of Service</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white cursor-pointer">Privacy Policy</a></li>
+                <li><a href="#" className="text-gray-400 hover:text-white cursor-pointer">Cookie Policy</a></li>
               </ul>
             </div>
           </div>

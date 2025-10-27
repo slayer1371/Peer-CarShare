@@ -8,10 +8,10 @@ export default function Cta() {
               Start sharing or renting cars today and join our community of thousands.
             </p>
             <div className="mt-8 flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <button className="bg-white text-blue-700 hover:bg-blue-50 px-8 py-3 rounded-lg font-medium text-lg shadow-md">
+              <button className="bg-white text-blue-700 hover:bg-blue-50 px-8 py-3 rounded-lg font-medium text-lg shadow-md cursor-pointer">
                 Sign Up Now
               </button>
-              <button className="bg-blue-500 text-white hover:bg-blue-400 border border-blue-300 px-8 py-3 rounded-lg font-medium text-lg shadow-md">
+              <button className="bg-blue-500 text-white hover:bg-blue-400 border border-blue-300 px-8 py-3 rounded-lg font-medium text-lg shadow-md cursor-pointer">
                 Learn More
               </button>
             </div>
