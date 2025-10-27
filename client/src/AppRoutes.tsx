@@ -5,6 +5,9 @@ import NotFound from './assets/pages/NotFound';
 import Signup from './assets/pages/Signup';
 import Login from './assets/pages/LoginPage';
 import Dashboard from './assets/pages/Dashboard';
+import Profile from './assets/pages/Profile';
+import AddListing from './assets/pages/AddListing';
+import MyListings from './assets/pages/MyListings';
 import { ProtectedRoute } from './assets/Components/Protected';
 
 export default function AppRoutes() {
@@ -21,7 +24,32 @@ export default function AppRoutes() {
             <Dashboard />
           </ProtectedRoute>
         } 
-      />          <Route path="*" element={<NotFound />} />
+      />
+      <Route 
+        path="/profile" 
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/add-listing" 
+        element={
+          <ProtectedRoute>
+            <AddListing />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/my-listings" 
+        element={
+          <ProtectedRoute>
+            <MyListings />
+          </ProtectedRoute>
+        } 
+      />
+      <Route path="*" element={<NotFound />} />
         </Routes>
     </>
 }
