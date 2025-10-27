@@ -1,15 +1,42 @@
 import { useUser } from "../../context/UserContext";
-import { Car, LogOut, PlusCircle, Handshake, CreditCard, Shield } from 'lucide-react';
+import { Car, PlusCircle, Handshake, CreditCard, Shield } from 'lucide-react';
+import { useNavigate } from 'react-router';
+import Navbar from '../Components/Navbar';
+import { useState, useEffect } from 'react';
+import { API_ENDPOINTS, fetchWithAuth } from '../../config/api';
 
 export default function Dashboard() {
-  const { user, logout } = useUser();
+  const { user } = useUser();
+  const navigate = useNavigate();
+  const [carsCount, setCarsCount] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchCarsCount();
+  }, []);
+
+  const fetchCarsCount = async () => {
+    try {
+      const response = await fetchWithAuth(API_ENDPOINTS.myCars);
+      if (response.ok) {
+        const data = await response.json();
+        setCarsCount(data.length);
+      }
+    } catch (error) {
+      console.error('Error fetching cars count:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const dashboardStats = [
     { 
       icon: Car, 
       title: 'Cars Listed', 
-      value: user?.carsListed || 0,
-      color: 'text-blue-600'
+      value: loading ? '...' : carsCount,
+      color: 'text-blue-600',
+      clickable: true,
+      onClick: () => navigate('/my-listings')
     },
     { 
       icon: Handshake, 
@@ -26,29 +53,23 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="container mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <div>
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gray-50 p-6">
+        <div className="container mx-auto">
+          <div className="mb-8">
             <h1 className="text-3xl font-bold text-gray-800">
               Welcome, {user?.name}!
             </h1>
             <p className="text-gray-500">Your P2P Car Rental Dashboard</p>
-          </div>
-          <button 
-            onClick={logout} 
-            className="flex items-center gap-2 text-red-600 hover:text-red-800 transition"
-          >
-            <LogOut className="w-5 h-5" />
-            Logout
-          </button>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
+          </div>        <div className="grid md:grid-cols-3 gap-6 mb-8">
           {dashboardStats.map((stat) => (
             <div 
               key={stat.title}
-              className="bg-white shadow-md rounded-lg p-6 flex items-center space-x-4 hover:shadow-lg transition"
+              onClick={stat.clickable ? stat.onClick : undefined}
+              className={`bg-white shadow-md rounded-lg p-6 flex items-center space-x-4 hover:shadow-lg transition ${
+                stat.clickable ? 'cursor-pointer hover:bg-blue-50' : ''
+              }`}
             >
               <stat.icon className={`w-12 h-12 ${stat.color}`} />
               <div>
@@ -68,7 +89,10 @@ export default function Dashboard() {
             <p className="text-gray-500 mb-4">
               Share your vehicle and start earning passive income from your car.
             </p>
-            <button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+            <button 
+              onClick={() => navigate('/add-listing')}
+              className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer"
+            >
               Add New Listing
             </button>
           </div>
@@ -81,7 +105,10 @@ export default function Dashboard() {
             <p className="text-gray-500 mb-4">
               Browse and book unique cars from local owners near you.
             </p>
-            <button className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition">
+            <button 
+              onClick={() => navigate('/listings')}
+              className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition cursor-pointer"
+            >
               Find a Car
             </button>
           </div>
@@ -111,5 +138,6 @@ export default function Dashboard() {
         </div>
       </div>
     </div>
+    </>
   );
 }

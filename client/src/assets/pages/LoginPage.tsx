@@ -138,7 +138,7 @@ export default function LoginPage() {
                 logout();
                 navigate("/");
               }}
-              className="flex items-center text-red-600 hover:text-red-800"
+              className="flex items-center text-red-600 hover:text-red-800 cursor-pointer"
             >
               <LogOut className="h-4 w-4 mr-2" />
               Logout
@@ -157,7 +157,7 @@ export default function LoginPage() {
             <div className="space-y-4">
               <button
                 onClick={() => navigate("/dashboard")}
-                className="w-full py-3 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+                className="w-full py-3 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition cursor-pointer"
               >
                 Go to Dashboard
               </button>
@@ -166,7 +166,7 @@ export default function LoginPage() {
                   logout();
                   navigate("/");
                 }}
-                className="w-full py-3 px-4 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition"
+                className="w-full py-3 px-4 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition cursor-pointer"
               >
                 Logout
               </button>
@@ -194,7 +194,7 @@ export default function LoginPage() {
           </div>
           <button 
             onClick={() => navigate("/")}
-            className="flex items-center text-blue-600 hover:text-blue-800"
+            className="flex items-center text-blue-600 hover:text-blue-800 cursor-pointer"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Home
@@ -248,7 +248,7 @@ export default function LoginPage() {
                 </label>
                 <a 
                   href="/forgot-password" 
-                  className="text-sm text-blue-600 hover:text-blue-500"
+                  className="text-sm text-blue-600 hover:text-blue-500 cursor-pointer"
                 >
                   Forgot password?
                 </a>
@@ -271,7 +271,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={togglePasswordVisibility}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
                 >
                   {showPassword ? (
                     <EyeOff className="h-5 w-5 text-gray-400" />
@@ -289,7 +289,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+              className="w-full py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
             >
               {isLoading ? "Logging in..." : "Log In"}
             </button>
@@ -301,7 +301,7 @@ export default function LoginPage() {
                 <button 
                   type="button"
                   onClick={() => navigate("/signup")}
-                  className="font-medium text-blue-600 hover:text-blue-500"
+                  className="font-medium text-blue-600 hover:text-blue-500 cursor-pointer"
                 >
                   Sign up
                 </button>
@@ -324,13 +324,13 @@ export default function LoginPage() {
               <div className="mt-6 grid grid-cols-2 gap-3">
                 <button
                   type="button"
-                  className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                  className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 cursor-pointer"
                 >
                   Google
                 </button>
                 <button
                   type="button"
-                  className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                  className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 cursor-pointer"
                 >
                   Facebook
                 </button>
