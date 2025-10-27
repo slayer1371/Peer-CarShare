@@ -14,8 +14,16 @@ export const authenticate = async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
+    
+    // Support both old and new token formats
+    const userId = decoded.userId || decoded.id;
+    
+    if (!userId) {
+      return res.status(401).json({ error: "Invalid token format." });
+    }
+    
     const user = await prisma.user.findUnique({
-      where: { id: decoded.userId },
+      where: { id: userId },
     });
 
     if (!user) {
